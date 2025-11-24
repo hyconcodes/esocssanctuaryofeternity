@@ -40,7 +40,7 @@
         <div class="rounded-2xl p-6 bg-white shadow-md shadow-purple-200">
             <h3 class="text-xl font-semibold text-[#45016a]">Core Values</h3>
             <div class="mt-4 grid sm:grid-cols-3 lg:grid-cols-6 gap-3">
-                @foreach(['Love','Faith','Holiness','Respect','Diligence','Service'] as $v)
+                @foreach(['Love','Unshakable Faith','Holiness','Respect','Diligence','Service'] as $v)
                     <div class="rounded-2xl border border-[#ffc0cb] p-4 text-center">{{ $v }}</div>
                 @endforeach
             </div>
@@ -57,4 +57,3 @@
         </div>
     </section>
 @endsection
-

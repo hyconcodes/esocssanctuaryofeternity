@@ -4,7 +4,7 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white text-neutral-900">
-        <header class="sticky top-0 z-50 bg-[#45016a] text-white shadow-md shadow-purple-200">
+        <header class="sticky top-0 z-50 bg-[#45016a] text-white shadow-md">
             <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     <img src="/assets/logo.png" alt="Logo" class="h-20 w-25 rounded-lg" />

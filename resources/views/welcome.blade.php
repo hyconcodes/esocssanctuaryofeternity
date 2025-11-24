@@ -6,7 +6,7 @@
             <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline>
                 <source src="{{ asset("assets/intro.mp4") }}" type="video/mp4">
             </video>
-            <div class="absolute inset-0 bg-[#45016a]/60"></div>
+            <div class="absolute inset-0 bg-[#45016a]/30"></div>
             <div class="relative z-10 flex h-full items-center px-6 lg:px-10">
                 <div class="max-w-2xl text-white">
                     <h1 class="text-3xl lg:text-5xl font-bold">Welcome to ESOCS Platinum Branch</h1>
@@ -20,29 +20,40 @@
         </div>
     </section>
 
-    <section class="px-4 lg:px-10 mt-10 grid gap-8" data-animate>
-        <div class="grid lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 rounded-2xl p-6 bg-white shadow-md shadow-purple-200">
+    <section class="px-4 lg:px-10 mt-10" data-animate>
+        <div class="grid lg:grid-cols-2 gap-6 items-center">
+            <div class="rounded-2xl overflow-hidden shadow-md shadow-purple-200">
+                <img src="{{ asset("assets/whoweare.jpg") }}" alt="Congregation" class="w-full h-[320px] object-cover" />
+            </div>
+            <div class="rounded-2xl p-6 bg-white shadow-md shadow-purple-200">
                 <h2 class="text-2xl font-semibold text-[#45016a]">Who We Are</h2>
                 <p class="mt-3 text-neutral-700">We are a Christ-centered community proclaiming the gospel and discipling believers to live in love, faith, holiness, respect, diligence, and service.</p>
                 <div class="mt-6 grid lg:grid-cols-2 gap-6">
                     <div class="rounded-2xl p-5 border border-[#ffc0cb] bg-white shadow-md shadow-purple-200">
-                        <h3 class="text-xl font-semibold text-[#45016a]">Vision Statement</h3>
+                        <div class="text-xl font-semibold text-[#45016a]">Vision Statement</div>
                         <p class="mt-2 text-neutral-700">To build a sanctuary where lives encounter Jesus, families flourish, and generations follow God wholeheartedly.</p>
                     </div>
                     <div class="rounded-2xl p-5 border border-[#ffc0cb] bg-white shadow-md shadow-purple-200">
-                        <h3 class="text-xl font-semibold text-[#45016a]">Mission Statement</h3>
+                        <div class="text-xl font-semibold text-[#45016a]">Mission Statement</div>
                         <p class="mt-2 text-neutral-700">To preach Christ, nurture believers, and serve our city through intentional outreach and compassionate ministry.</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="px-4 lg:px-10 mt-10" data-animate>
+        <div class="grid lg:grid-cols-2 gap-6 items-center">
             <div class="rounded-2xl p-6 bg-white shadow-md shadow-purple-200">
-                <h3 class="text-xl font-semibold text-[#45016a]">Core Values</h3>
-                <div class="mt-4 grid grid-cols-2 gap-3">
-                    @foreach(['Love','Faith','Holiness','Respect','Diligence','Service'] as $value)
+                <h2 class="text-2xl font-semibold text-[#45016a]">Core Values</h2>
+                <div class="mt-4 grid sm:grid-cols-2 gap-3">
+                    @foreach(['Love','Unshakable Faith','Holiness','Respect','Diligence','Service'] as $value)
                         <div class="rounded-2xl border border-[#ffc0cb] p-4 text-center bg-white shadow-md shadow-purple-200">{{ $value }}</div>
                     @endforeach
                 </div>
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-md shadow-purple-200">
+                <img src="{{ asset("assets/corevalue.jpg") }}" alt="Worship" class="w-full h-[320px] object-cover" />
             </div>
         </div>
     </section>
@@ -195,4 +206,3 @@
         </div>
     </section>
 @endsection
-
