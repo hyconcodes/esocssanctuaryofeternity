@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="px-4 lg:px-10" data-animate>
-        <div class="rounded-2xl p-6 bg-white shadow-md shadow-purple-200">
+        <div class="rounded-sm p-6 bg-white shadow-md shadow-purple-200">
             <h1 class="text-3xl font-bold text-[#45016a]">Our Ministers & Workers</h1>
             <p class="mt-2 text-neutral-700">Pastors, ministers, and service heads serving our church family.</p>
             <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -17,8 +17,8 @@
                     ];
                 @endphp
                 @foreach($people as $p)
-                    <div class="p-[2px] rounded-2xl bg-gradient-to-r from-[#45016a] via-[#ffc0cb] to-[#45016a]">
-                        <div class="rounded-2xl bg-white p-5 shadow-md shadow-purple-200 transition hover:shadow-lg">
+                    <div class="p-[2px] rounded-sm bg-gradient-to-r from-[#45016a] via-[#ffc0cb] to-[#45016a]">
+                        <div class="rounded-sm bg-white p-5 shadow-md shadow-purple-200 transition hover:shadow-lg">
                             <div class="flex items-center gap-4">
                                 <img src="{{ $p['img'] }}" alt="{{ $p['name'] }}" class="size-16 rounded-full object-cover" />
                                 <div>

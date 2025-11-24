@@ -38,3 +38,28 @@ Route::middleware(['auth'])->group(function () {
         )
         ->name('two-factor.show');
 });
+
+Volt::route('admin/events', 'events.manage')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.events');
+
+Volt::route('admin/gallery', 'gallery.manage')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.gallery');
+
+Volt::route('admin/audios', 'audios.manage')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.audios');
+
+Volt::route('admin/testimonies', 'testimonies.manage')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.testimonies');
+
+Volt::route('admin/giving', 'giving.manage')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.giving');
+
+Route::get('/events/{slug}', function (string $slug) {
+    $event = \App\Models\Event::where('slug', $slug)->firstOrFail();
+    return view('event-read', compact('event'));
+})->name('events.read');

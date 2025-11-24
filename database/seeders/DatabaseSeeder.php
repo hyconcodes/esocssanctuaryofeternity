@@ -16,11 +16,12 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::firstOrCreate(
-            ['email' => 'test@example.com'],
+            ['email' => 'admin@esocs.com'],
             [
-                'name' => 'Test User',
+                'name' => 'Admin User',
                 'password' => 'password',
                 'email_verified_at' => now(),
+                'role' => "admin",
             ]
         );
     }

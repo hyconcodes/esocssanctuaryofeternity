@@ -10,53 +10,53 @@
                     <img src="/assets/logo.png" alt="Logo" class="h-20 w-25 rounded-lg" />
                     {{-- <span class="font-semibold">{{ config('app.name', 'ESOCS Platinum Branch') }}</span> --}}
                 </a>
-                <button id="mobileMenuButton" class="rounded-2xl bg-white/10 px-3 py-2 hover:bg-[#ffc0cb]/30 transition lg:hidden">
+                <button id="mobileMenuButton" class="rounded-sm bg-white/10 px-3 py-2 hover:bg-[#ffc0cb]/30 transition lg:hidden">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
                 </button>
                 <nav class="hidden lg:block">
                     <ul class="flex items-center gap-1">
-                        <li><a href="{{ route('home') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Home</a></li>
-                        <li><a href="{{ route('about') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">About</a></li>
-                        <li><a href="{{ route('events') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Events</a></li>
+                        <li><a href="{{ route('home') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Home</a></li>
+                        {{-- <li><a href="{{ route('about') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">About</a></li> --}}
+                        <li><a href="{{ route('events') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Events</a></li>
                         <li class="relative group">
-                            <button class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition flex items-center gap-1">
+                            <button class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition flex items-center gap-1">
                                 Media
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4"><path fill-rule="evenodd" d="M12 14.25a.75.75 0 0 1-.53-.22l-5-5a.75.75 0 1 1 1.06-1.06L12 12.44l4.47-4.47a.75.75 0 1 1 1.06 1.06l-5 5a.75.75 0 0 1-.53.22Z" clip-rule="evenodd"/></svg>
                             </button>
-                            <div class="absolute right-0 mt-2 hidden group-hover:block rounded-2xl bg-[#45016a] text-white shadow-md shadow-purple-200 border border-white/20 w-48">
+                            <div class="absolute right-0 mt-2 hidden group-hover:block rounded-sm bg-[#45016a] text-white shadow-md shadow-purple-200 border border-white/20 w-48">
                                 <a href="{{ route('gallery') }}" class="block px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Gallery</a>
                                 <a href="{{ route('audios') }}" class="block px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Audios</a>
                             </div>
                         </li>
-                        <li><a href="{{ route('giving') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Giving</a></li>
-                        <li><a href="{{ route('ministers') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Ministers</a></li>
-                        <li><a href="{{ route('contact') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Contact</a></li>
-                        {{-- <li class="ms-2"><a href="#" class="rounded-2xl px-4 py-2 bg-white text-[#45016a] font-semibold hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a></li> --}}
-                        <li><a href="#" class="rounded-2xl px-4 py-2 border border-white/30 hover:bg-[#ffc0cb] transition">Join Us</a></li>
+                        <li><a href="{{ route('giving') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Giving</a></li>
+                        <li><a href="{{ route('ministers') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Ministers</a></li>
+                        <li><a href="{{ route('contact') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Contact</a></li>
+                        {{-- <li class="ms-2"><a href="#" class="rounded-sm px-4 py-2 bg-white text-[#45016a] font-semibold hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a></li> --}}
+                        <li><a href="{{ route('register') }}" class="rounded-sm px-4 py-2 border border-white/30 hover:bg-[#ffc0cb] transition">Join Us</a></li>
                     </ul>
                 </nav>
             </div>
             <div id="topNavMenu" class="hidden lg:hidden border-t border-white/20">
                 <div class="mx-auto max-w-7xl px-4 py-3 grid gap-2">
-                    <a href="{{ route('home') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Home</a>
-                    <a href="{{ route('about') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">About</a>
-                    <a href="{{ route('events') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Events</a>
-                    <button id="mediaToggle" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition flex items-center justify-between">
+                    <a href="{{ route('home') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Home</a>
+                    {{-- <a href="{{ route('about') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">About</a> --}}
+                    <a href="{{ route('events') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Events</a>
+                    <button id="mediaToggle" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition flex items-center justify-between">
                         <span>Media</span>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4"><path fill-rule="evenodd" d="M12 14.25a.75.75 0 0 1-.53-.22l-5-5a.75.75 0 1 1 1.06-1.06L12 12.44l4.47-4.47a.75.75 0 1 1 1.06 1.06l-5 5a.75.75 0 0 1-.53.22Z" clip-rule="evenodd"/></svg>
                     </button>
                     <div id="mediaSubmenu" class="hidden ps-4 grid gap-2">
-                        <a href="{{ route('gallery') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Gallery</a>
-                        <a href="{{ route('audios') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Audios</a>
+                        <a href="{{ route('gallery') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Gallery</a>
+                        <a href="{{ route('audios') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Audios</a>
                     </div>
-                    <a href="{{ route('giving') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Giving</a>
-                    <a href="{{ route('ministers') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Ministers</a>
-                    <a href="{{ route('contact') }}" class="rounded-2xl px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Contact</a>
+                    <a href="{{ route('giving') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Giving</a>
+                    <a href="{{ route('ministers') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Ministers</a>
+                    <a href="{{ route('contact') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Contact</a>
                     <div class="grid grid-cols-2 gap-2 mt-2">
-                        {{-- <a href="#" class="rounded-2xl px-4 py-2 text-center bg-white text-[#45016a] font-semibold hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a> --}}
-                        <a href="#" class="rounded-2xl px-4 py-2 text-center border border-white/30 hover:bg-[#ffc0cb] transition">Join Us</a>
+                        {{-- <a href="#" class="rounded-sm px-4 py-2 text-center bg-white text-[#45016a] font-semibold hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a> --}}
+                        <a href="{{ route('register') }}" class="rounded-sm px-4 py-2 text-center border border-white/30 hover:bg-[#ffc0cb] transition">Join Us</a>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                     <div>
                         <div class="font-semibold">Quick Links</div>
                         <ul class="mt-3 space-y-2 text-sm">
-                            <li><a href="{{ route('about') }}" class="hover:text-[#ffc0cb] transition">About</a></li>
+                            {{-- <li><a href="{{ route('about') }}" class="hover:text-[#ffc0cb] transition">About</a></li> --}}
                             <li><a href="{{ route('events') }}" class="hover:text-[#ffc0cb] transition">Events</a></li>
                             <li><a href="{{ route('gallery') }}" class="hover:text-[#ffc0cb] transition">Gallery</a></li>
                             <li><a href="{{ route('giving') }}" class="hover:text-[#ffc0cb] transition">Giving</a></li>
@@ -107,13 +107,13 @@
                     <div>
                         <div class="font-semibold">Follow</div>
                         <div class="mt-3 flex gap-2">
-                            <a href="#" class="rounded-2xl p-2 bg-white/10 hover:bg-white/20 transition">
+                            <a href="#" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 5.5 4.46 9.96 9.96 9.96s9.96-4.46 9.96-9.96c0-5.5-4.46-9.96-9.96-9.96Zm1.19 14.82h-2.25V10.5h2.25v6.36Zm-.06-7.65h-2.22V7.02h2.22v2.19Z"/></svg>
                             </a>
-                            <a href="#" class="rounded-2xl p-2 bg-white/10 hover:bg-white/20 transition">
+                            <a href="#" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M12 2.04C6.5 2.04 2.04 6.5 2.04 12s4.46 9.96 9.96 9.96 9.96-4.46 9.96-9.96S17.5 2.04 12 2.04Zm3.76 7.12h-1.85c-1.45 0-1.73.69-1.73 1.7v1.42h3.37l-.44 3.42h-2.93v8.76H8.81v-8.76H7V12.28h1.81v-1.54c0-1.79.98-4.53 4.53-4.53l2.42.02v3.93Z"/></svg>
                             </a>
-                            <a href="#" class="rounded-2xl p-2 bg-white/10 hover:bg-white/20 transition">
+                            <a href="#" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 5.5 4.46 9.96 9.96 9.96s9.96-4.46 9.96-9.96c0-5.5-4.46-9.96-9.96-9.96Zm3.7 13.1c-1.89 0-3.42-1.53-3.42-3.42s1.53-3.42 3.42-3.42 3.42 1.53 3.42 3.42-1.53 3.42-3.42 3.42Zm0-5.22a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM7.21 7.21h3.6v3.6h-3.6v-3.6Z"/></svg>
                             </a>
                         </div>
@@ -126,10 +126,94 @@
             </div>
         </footer>
 
-        <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80">
-            <button id="lightboxClose" class="absolute top-4 right-4 rounded-2xl bg-white/10 px-3 py-2 text-white hover:bg-[#ffc0cb]/30">Close</button>
-            <img id="lightboxImage" src="" alt="Preview" class="max-h-[85vh] max-w-[90vw] rounded-2xl shadow-md shadow-purple-200" />
-        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                if (window.GLightbox) {
+                    GLightbox({ selector: '.glightbox' });
+                }
+
+                document.addEventListener('click', function(e){
+                    var btn = e.target.closest('[data-filter][data-target]');
+                    if (!btn) return;
+                    e.preventDefault();
+                    var targetSel = btn.getAttribute('data-target');
+                    var filter = btn.getAttribute('data-filter');
+                    var container = document.querySelector(targetSel);
+                    if (!container) return;
+                    // update active state on siblings
+                    var group = btn.parentElement;
+                    group.querySelectorAll('[data-filter]').forEach(function(el){
+                        el.classList.remove('bg-\[\#ffc0cb\]','border-\[\#ffc0cb\]');
+                    });
+                    btn.classList.add('bg-\[\#ffc0cb\]','border-\[\#ffc0cb\]');
+                    // filter items
+                    container.querySelectorAll('[data-category]').forEach(function(item){
+                        if (filter === 'all' || (item.getAttribute('data-category') || '') === filter) {
+                            item.classList.remove('hidden');
+                        } else {
+                            item.classList.add('hidden');
+                        }
+                    });
+                });
+
+                document.querySelectorAll('[data-autoscroll]').forEach(function(container){
+                    var paused = false;
+                    var step = 360;
+                    var interval = 3500;
+                    var timer = setInterval(function(){
+                        if (paused) return;
+                        var maxScrollLeft = container.scrollWidth - container.clientWidth;
+                        var next = Math.min(container.scrollLeft + step, maxScrollLeft);
+                        if (next >= maxScrollLeft) {
+                            container.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                            container.scrollTo({ left: next, behavior: 'smooth' });
+                        }
+                    }, interval);
+                    container.addEventListener('mouseenter', function(){ paused = true; });
+                    container.addEventListener('mouseleave', function(){ paused = false; });
+                    window.addEventListener('beforeunload', function(){ clearInterval(timer); });
+                });
+
+                document.querySelectorAll('[data-carousel]').forEach(function(root){
+                    var items = Array.from(root.querySelectorAll('[data-carousel-item]'));
+                    if (!items.length) return;
+                    var index = 0;
+                    function show(i){
+                        index = (i + items.length) % items.length;
+                        for (var k=0;k<items.length;k++){
+                            if (k === index) {
+                                items[k].classList.remove('opacity-0','pointer-events-none','absolute');
+                                items[k].classList.add('opacity-100','relative');
+                            } else {
+                                items[k].classList.remove('opacity-100','relative');
+                                items[k].classList.add('opacity-0','pointer-events-none','absolute');
+                            }
+                        }
+                    }
+                    var autoplay = root.hasAttribute('data-autoplay');
+                    var interval = parseInt(root.getAttribute('data-interval')) || 3500;
+                    var paused = false;
+                    var timer = null;
+                    function start(){
+                        if (!autoplay) return;
+                        if (timer) clearInterval(timer);
+                        timer = setInterval(function(){ if (!paused) show(index + 1); }, interval);
+                    }
+                    root.addEventListener('mouseenter', function(){ paused = true; });
+                    root.addEventListener('mouseleave', function(){ paused = false; });
+                    root.closest('.rounded-sm')?.querySelectorAll('[data-action="prev"]').forEach(function(btn){
+                        btn.addEventListener('click', function(){ show(index - 1); start(); });
+                    });
+                    root.closest('.rounded-sm')?.querySelectorAll('[data-action="next"]').forEach(function(btn){
+                        btn.addEventListener('click', function(){ show(index + 1); start(); });
+                    });
+                    show(0);
+                    start();
+                    window.addEventListener('beforeunload', function(){ if (timer) clearInterval(timer); });
+                });
+            });
+        </script>
 
         @fluxScripts
     </body>
