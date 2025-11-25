@@ -6,7 +6,13 @@
             <h1 class="text-3xl font-bold text-[#45016a]">Contact Us</h1>
             <div class="mt-6 grid lg:grid-cols-3 gap-6">
                 <div class="lg:col-span-2">
-                    <form method="POST" action="#" class="grid gap-3">
+                    @php
+                        $setting = \App\Models\ContactSetting::query()->orderBy('created_at','desc')->first();
+                    @endphp
+                    @if (session('message'))
+                        <div class="mb-3 rounded-sm bg-green-100 text-green-700 p-3">{{ session('message') }}</div>
+                    @endif
+                    <form method="POST" action="{{ route('contact.submit') }}" class="grid gap-3">
                         @csrf
                         <input type="text" name="name" placeholder="Your name" class="rounded-sm border p-3" />
                         <input type="email" name="email" placeholder="Email" class="rounded-sm border p-3" />
@@ -18,18 +24,21 @@
                 <div class="grid gap-4">
                     <div class="rounded-sm p-4 border bg-white shadow-md shadow-purple-200">
                         <div class="font-semibold text-[#45016a]">Address</div>
-                        <p class="text-neutral-700">123 Sanctuary Road, Port Harcourt, Rivers State</p>
+                        <p class="text-neutral-700">{{ $setting->address ?? '54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.' }}</p>
                     </div>
                     <div class="rounded-sm p-4 border bg-white shadow-md shadow-purple-200">
                         <div class="font-semibold text-[#45016a]">Phone</div>
-                        <p class="text-neutral-700">+234 800 000 0000</p>
+                        <p class="text-neutral-700">{{ $setting->phone ?? '+234-8138703124' }}</p>
                     </div>
                     <div class="rounded-sm p-4 border bg-white shadow-md shadow-purple-200">
                         <div class="font-semibold text-[#45016a]">Email</div>
-                        <p class="text-neutral-700">info@esocsplatinum.org</p>
+                        <p class="text-neutral-700">{{ $setting->email ?? 'sanctuaryofeternityhop@gmail.com' }}</p>
                     </div>
                     <div class="rounded-sm overflow-hidden border bg-white shadow-md shadow-purple-200">
-                        <iframe class="w-full h-40" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.8000000000006!2d7.000000!3d4.800000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069d00000000000%3AESOCS%20Platinum%20Branch!5e0!3m2!1sen!2sng!4v1700000000000"></iframe>
+                        @php
+                            $map = $setting && $setting->map_embed_url ? $setting->map_embed_url : 'https://www.google.com/maps?q='.urlencode('54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.').'&output=embed';
+                        @endphp
+                        <iframe class="w-full h-40" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="{{ $map }}"></iframe>
                     </div>
                     <div class="rounded-sm p-4 border bg-white shadow-md shadow-purple-200">
                         <div class="font-semibold text-[#45016a]">Service Times</div>
@@ -52,4 +61,3 @@
         </div>
     </section>
 @endsection
-

@@ -93,10 +93,11 @@
                     </div>
                     <div>
                         <div class="font-semibold">Contact</div>
+                        @php $setting = \App\Models\ContactSetting::query()->orderBy('created_at','desc')->first(); @endphp
                         <ul class="mt-3 space-y-2 text-sm text-white/80">
-                            <li>123 Sanctuary Road, Port Harcourt</li>
-                            <li>+234 800 000 0000</li>
-                            <li>info@esocsplatinum.org</li>
+                            <li>{{ $setting->address ?? 'Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt. 54' }}</li>
+                            <li>{{ $setting->phone ?? '+234-8138703124' }}</li>
+                            <li>{{ $setting->email ?? 'sanctuaryofeternityhop@gmail.com' }}</li>
                         </ul>
                         <div class="mt-4 font-semibold">Service Times</div>
                         <ul class="mt-2 space-y-1 text-sm text-white/80">
@@ -107,14 +108,14 @@
                     <div>
                         <div class="font-semibold">Follow</div>
                         <div class="mt-3 flex gap-2">
-                            <a href="#" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 5.5 4.46 9.96 9.96 9.96s9.96-4.46 9.96-9.96c0-5.5-4.46-9.96-9.96-9.96Zm1.19 14.82h-2.25V10.5h2.25v6.36Zm-.06-7.65h-2.22V7.02h2.22v2.19Z"/></svg>
+                            <a href="https://x.com/sanctuaryh88065?s=21" target="_blank" rel="noopener" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition" aria-label="Twitter/X">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M18 2H21L13.5 10.5L21.5 22H15.5L10.5 14.5L4 22H1L8.5 13.5L1.5 2H7.5L12.5 9.5L18 2Z"/></svg>
                             </a>
-                            <a href="#" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M12 2.04C6.5 2.04 2.04 6.5 2.04 12s4.46 9.96 9.96 9.96 9.96-4.46 9.96-9.96S17.5 2.04 12 2.04Zm3.76 7.12h-1.85c-1.45 0-1.73.69-1.73 1.7v1.42h3.37l-.44 3.42h-2.93v8.76H8.81v-8.76H7V12.28h1.81v-1.54c0-1.79.98-4.53 4.53-4.53l2.42.02v3.93Z"/></svg>
+                            <a href="https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw" target="_blank" rel="noopener" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition" aria-label="YouTube">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M23.5 6.7c-.2-1.4-1.3-2.4-2.7-2.6C18.7 3.8 12 3.8 12 3.8s-6.7 0-8.8.3C1.8 4.3.7 5.3.5 6.7.2 8.9 0 12 0 12s.2 3.1.5 5.3c.2 1.4 1.3 2.4 2.7 2.6 2.1.3 8.8.3 8.8.3s6.7 0 8.8-.3c1.4-.2 2.5-1.2 2.7-2.6.3-2.2.5-5.3.5-5.3s-.2-3.1-.5-5.3ZM9.6 15.5V8.5l6.6 3.5-6.6 3.5Z"/></svg>
                             </a>
-                            <a href="#" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96 0 5.5 4.46 9.96 9.96 9.96s9.96-4.46 9.96-9.96c0-5.5-4.46-9.96-9.96-9.96Zm3.7 13.1c-1.89 0-3.42-1.53-3.42-3.42s1.53-3.42 3.42-3.42 3.42 1.53 3.42 3.42-1.53 3.42-3.42 3.42Zm0-5.22a1.8 1.8 0 1 0 0 3.6 1.8 1.8 0 0 0 0-3.6ZM7.21 7.21h3.6v3.6h-3.6v-3.6Z"/></svg>
+                            <a href="https://www.facebook.com/share/1HUKjScBYf/" target="_blank" rel="noopener" class="rounded-sm p-2 bg-white/10 hover:bg-white/20 transition" aria-label="Facebook">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-white"><path d="M13.5 20.5v-7h2.3l.3-3h-2.6V8.5c0-.9.3-1.5 1.5-1.5h1.2V4.3c-.6-.1-1.3-.3-2.1-.3-2.1 0-3.5 1.3-3.5 3.6v2.6H8v3h2.6v7h2.9Z"/></svg>
                             </a>
                         </div>
                     </div>
@@ -154,6 +155,38 @@
                             item.classList.add('hidden');
                         }
                     });
+                });
+
+                document.addEventListener('click', function(e){
+                    var cp = e.target.closest('[data-copy]');
+                    if (!cp) return;
+                    var text = cp.getAttribute('data-copy');
+                    if (!text) return;
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(text).then(function(){
+                            var prev = cp.textContent;
+                            cp.textContent = 'Copied';
+                            setTimeout(function(){ cp.textContent = prev; }, 1200);
+                        });
+                    }
+                });
+
+                document.addEventListener('click', function(e){
+                    var openBtn = e.target.closest('[data-modal-open]');
+                    if (openBtn) {
+                        var sel = openBtn.getAttribute('data-modal-open');
+                        var modal = document.querySelector(sel);
+                        if (modal) modal.classList.remove('hidden');
+                        e.preventDefault();
+                        return;
+                    }
+                    var closeBtn = e.target.closest('[data-modal-close]');
+                    if (closeBtn) {
+                        var modal = closeBtn.closest('[data-modal]');
+                        if (modal) modal.classList.add('hidden');
+                        e.preventDefault();
+                        return;
+                    }
                 });
 
                 document.querySelectorAll('[data-autoscroll]').forEach(function(container){

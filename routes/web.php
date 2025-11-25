@@ -59,7 +59,56 @@ Volt::route('admin/giving', 'giving.manage')
     ->middleware(['auth', 'admin'])
     ->name('admin.giving');
 
+Volt::route('admin/contact', 'contact.manage')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.contact');
+
+Route::post('/contact', function (\Illuminate\Http\Request $request) {
+    $data = $request->validate([
+        'name' => 'nullable|string|max:255',
+        'email' => 'nullable|email|max:255',
+        'phone' => 'nullable|string|max:255',
+        'message' => 'required|string',
+    ]);
+    \App\Models\ContactMessage::create($data);
+    return back()->with('message', 'Message sent');
+})->name('contact.submit');
+
 Route::get('/events/{slug}', function (string $slug) {
     $event = \App\Models\Event::where('slug', $slug)->firstOrFail();
     return view('event-read', compact('event'));
 })->name('events.read');
+
+Route::post('/testimonies/submit', function (\Illuminate\Http\Request $request) {
+    $data = $request->validate([
+        'name' => 'required|string|max:255',
+        'title' => 'nullable|string|max:255',
+        'category' => 'nullable|string|in:healing,breakthrough,family-reconciliation',
+        'rank' => 'nullable|string|max:64',
+        'photo' => 'nullable|image|max:4096',
+        'gender' => 'nullable|string|max:32',
+        'email' => 'nullable|email|max:255',
+        'phone' => 'nullable|string|max:32',
+        'country' => 'nullable|string|max:64',
+        'message' => 'required|string',
+    ]);
+
+    $payload = [
+        'title' => $data['title'] ? $data['title'] : ('Testimony from '.$data['name']),
+        'author' => $data['name'],
+        'description' => $data['message'],
+        'category' => $data['category'] ?? null,
+        'rank' => $data['rank'] ?? null,
+        'gender' => $data['gender'] ?? null,
+        'email' => $data['email'] ?? null,
+        'phone' => $data['phone'] ?? null,
+        'country' => $data['country'] ?? null,
+        'is_featured' => false,
+    ];
+    if (!empty($data['photo']) && $request->file('photo')) {
+        $path = $request->file('photo')->store('testimonies', 'public');
+        $payload['author_photo_path'] = $path;
+    }
+    \App\Models\Testimony::create($payload);
+    return back()->with('message', 'Thank you for sharing your testimony!');
+})->name('testimonies.submit');

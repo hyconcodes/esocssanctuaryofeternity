@@ -208,6 +208,7 @@
                     <button type="button" class="rounded-sm border px-3 py-2 hover:bg-[#ffc0cb]" data-action="next">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5"><path fill-rule="evenodd" d="M8.47 4.47a.75.75 0 0 1 1.06 0l6.5 6.5a.75.75 0 0 1 0 1.06l-6.5 6.5a.75.75 0 1 1-1.06-1.06l5.97-5.97-5.97-5.97a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
                     </button>
+                    <button type="button" class="rounded-sm bg-[#45016a] text-white px-3 py-2 hover:bg-[#ffc0cb] hover:text-[#45016a]" data-modal-open="#testimonyModal">Share Your Testimony</button>
                 </div>
             </div>
             <div id="homeTestimoniesCarousel" class="mt-4 relative min-h-[260px]" data-carousel data-autoplay data-interval="4000">
@@ -237,28 +238,45 @@
                     <div class="text-center py-8 text-neutral-600">No testimonies yet.</div>
                 @endforelse
             </div>
+            
         </div>
     </section>
 
     <section class="px-4 lg:px-10 mt-10" data-animate>
-        <div class="rounded-sm p-6 bg-white shadow-md shadow-purple-200">
-            <h2 class="text-2xl font-semibold text-[#45016a]">Offerings & Donation</h2>
-            <p class="mt-2 text-neutral-700 italic">“God loves a cheerful giver…” — 2 Corinthians 9:7</p>
-            <p class="mt-2 text-neutral-700 italic">Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver. Consider sharing a donation to support a good cause.</p>
+        <div class="rounded-sm overflow-hidden shadow-md shadow-purple-200 relative">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#45016a] to-[#ffc0cb]"></div>
             @php
                 $giving = \App\Models\Giving::orderBy('is_featured','desc')->orderBy('created_at','desc')->first();
             @endphp
-            <div class="mt-6 rounded-sm border border-[#ffc0cb] p-5 bg-white shadow-md shadow-purple-200 text-center">
-                <div class="font-semibold text-[#45016a]">Bank Transfer</div>
-                @if($giving)
-                    <div class="mt-2 text-neutral-700">
-                        <div class="text-lg font-semibold">{{ $giving->account_number }}</div>
-                        <div>{{ $giving->account_name }}</div>
-                        <div>{{ $giving->bank_name }}</div>
+            <div class="relative p-6 lg:p-10">
+                <div class="grid lg:grid-cols-2 gap-8 items-center text-white">
+                    <div>
+                        <div class="flex items-center gap-3">
+                            <span class="inline-flex items-center justify-center rounded-full bg-white/20 p-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6"><path d="M3 6.75A1.75 1.75 0 0 1 4.75 5h11.5A1.75 1.75 0 0 1 18 6.75v8.5A1.75 1.75 0 0 1 16.25 17H4.75A1.75 1.75 0 0 1 3 15.25v-8.5Zm19.5 2a.75.75 0 0 1 .75.75v7a2.25 2.25 0 0 1-2.25 2.25H6a.75.75 0 0 1 0-1.5h15a.75.75 0 0 0 .75-.75v-7a.75.75 0 0 1 .75-.75Z"/></svg>
+                            </span>
+                            <h2 class="text-2xl font-semibold">Offerings & Donation</h2>
+                        </div>
+                        <p class="mt-3 text-white/90">Every man according as he purposeth in his heart, so let him give; not grudgingly, or of necessity: for God loveth a cheerful giver. Consider sharing a donation to support a good cause.</p>
                     </div>
-                @else
-                    <p class="mt-2 text-neutral-700">No account info yet.</p>
-                @endif
+                    <div>
+                        <div class="rounded-sm bg-white/10 backdrop-blur p-6 border border-white/20">
+                            <div class="text-white font-semibold">Bank Transfer</div>
+                            @if($giving)
+                                <div class="mt-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="text-3xl font-bold tracking-wider">{{ $giving->account_number }}</div>
+                                        <button type="button" class="rounded-sm border border-white/30 px-3 py-2 hover:bg-white/20" data-copy="{{ $giving->account_number }}">Copy</button>
+                                    </div>
+                                    <div class="mt-2 text-white/90">{{ $giving->account_name }}</div>
+                                    <div class="text-sm text-white/80">{{ $giving->bank_name }}</div>
+                                </div>
+                            @else
+                                <div class="mt-3 text-white/90">No account info yet.</div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -267,12 +285,16 @@
         <div class="rounded-sm p-6 bg-white shadow-md shadow-purple-200">
             <div class="grid lg:grid-cols-2 gap-6">
                 <div>
+                    @php $setting = \App\Models\ContactSetting::query()->orderBy('created_at','desc')->first(); @endphp
                     <h2 class="text-2xl font-semibold text-[#45016a]">Contact Us</h2>
-                    <p class="mt-2 text-neutral-700">Address: 123 Sanctuary Road, Port Harcourt, Rivers State</p>
-                    <p class="text-neutral-700">Phone: +234 800 000 0000</p>
-                    <p class="text-neutral-700">Email: info@esocsplatinum.org</p>
+                    <p class="mt-2 text-neutral-700">Address: {{ $setting->address ?? '54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.' }}</p>
+                    <p class="text-neutral-700">Phone: {{ $setting->phone ?? '+234-8138703124' }}</p>
+                    <p class="text-neutral-700">Email: {{ $setting->email ?? 'sanctuaryofeternityhop@gmail.com' }}</p>
                     <div class="mt-4">
-                        <form method="POST" action="#" class="grid gap-3">
+                        @if (session('message'))
+                            <div class="mb-3 rounded-sm bg-green-100 text-green-700 p-3">{{ session('message') }}</div>
+                        @endif
+                        <form method="POST" action="{{ route('contact.submit') }}" class="grid gap-3">
                             @csrf
                             <input type="text" name="name" placeholder="Your name" class="rounded-sm border p-3" />
                             <input type="email" name="email" placeholder="Email" class="rounded-sm border p-3" />
@@ -282,9 +304,51 @@
                     </div>
                 </div>
                 <div>
-                    <iframe class="rounded-sm w-full h-[300px] lg:h-full shadow-md shadow-purple-200" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.8000000000006!2d7.000000!3d4.800000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069d00000000000%3AESOCS%20Platinum%20Branch!5e0!3m2!1sen!2sng!4v1700000000000"></iframe>
+                    @php $map = $setting && $setting->map_embed_url ? $setting->map_embed_url : 'https://www.google.com/maps?q='.urlencode('54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.').'&output=embed'; @endphp
+                    <iframe class="rounded-sm w-full h-[300px] lg:h-full shadow-md shadow-purple-200" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" src="{{ $map }}"></iframe>
                 </div>
             </div>
         </div>
     </section>
+
+    <div id="testimonyModal" data-modal class="hidden fixed inset-0 z-50">
+        <div class="absolute inset-0 bg-black/50" data-modal-close></div>
+        <div class="relative max-w-3xl mx-auto mt-10 bg-white rounded-sm shadow-md shadow-purple-200">
+            <div class="flex items-center justify-between px-5 py-3 border-b">
+                <div class="font-semibold text-[#45016a]">Share Your Testimony</div>
+                <button type="button" class="rounded-sm border px-3 py-1" data-modal-close>Close</button>
+            </div>
+            <div class="p-5">
+                @if (session('message'))
+                    <div class="mb-3 rounded-sm bg-green-100 text-green-700 p-3">{{ session('message') }}</div>
+                @endif
+                <form method="POST" action="{{ route('testimonies.submit') }}" enctype="multipart/form-data" class="grid lg:grid-cols-2 gap-3">
+                    @csrf
+                    <input type="text" name="name" placeholder="Name" class="rounded-sm border p-3" required />
+                    <input type="file" name="photo" accept="image/*" class="rounded-sm border p-3" />
+                    <input type="text" name="title" placeholder="Title" class="rounded-sm border p-3" />
+                    <select name="category" class="rounded-sm border p-3">
+                        <option value="">Category (optional)</option>
+                        <option value="healing">Healing</option>
+                        <option value="breakthrough">Breakthrough</option>
+                        <option value="family-reconciliation">Family Reconciliation</option>
+                    </select>
+                    <input type="text" name="rank" placeholder="Rank / Position (optional) or Just Member" class="rounded-sm border p-3" />
+                    <select name="gender" class="rounded-sm border p-3">
+                        <option value="">Gender (optional)</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                    <input type="email" name="email" placeholder="Email (optional)" class="rounded-sm border p-3" />
+                    <input type="text" name="phone" placeholder="Phone (optional)" class="rounded-sm border p-3" />
+                    <input type="text" name="country" placeholder="Country (optional)" class="rounded-sm border p-3" />
+                    <textarea name="message" placeholder="Your testimony" rows="4" class="rounded-sm border p-3 lg:col-span-2" required></textarea>
+                    <div class="lg:col-span-2 flex justify-end gap-2">
+                        <button type="button" class="rounded-sm border px-4 py-2" data-modal-close>Cancel</button>
+                        <button class="rounded-sm bg-[#45016a] text-white px-5 py-2 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

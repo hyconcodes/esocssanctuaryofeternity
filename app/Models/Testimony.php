@@ -17,7 +17,12 @@ class Testimony extends Model
         'category',
         'author',
         'author_photo_path',
+        'gender',
+        'email',
+        'phone',
+        'country',
         'is_featured',
+        'rank',
     ];
 
     protected $casts = [

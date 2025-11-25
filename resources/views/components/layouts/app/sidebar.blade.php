@@ -36,6 +36,9 @@
                         <flux:navlist.item icon="banknotes" :href="route('admin.giving')"
                             :current="request()->routeIs('admin.giving')" wire:navigate>{{ __('Manage Giving') }}
                         </flux:navlist.item>
+                        <flux:navlist.item icon="map-pin" :href="route('admin.contact')"
+                            :current="request()->routeIs('admin.contact')" wire:navigate>{{ __('Manage Contact') }}
+                        </flux:navlist.item>
                     </flux:navlist.group>
                 @endif
             @endauth
