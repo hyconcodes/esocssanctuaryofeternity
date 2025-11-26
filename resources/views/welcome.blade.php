@@ -31,6 +31,9 @@
 @endsection
 
 @section('content')
+    <div data-preloader class="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-zinc-900 transition-opacity">
+        <img src="/assets/logo.png" alt="Logo" class="h-20 w-24 rounded-lg animate-pulse" />
+    </div>
     <section class="relative" data-animate>
         <div class="relative h-[70vh] lg:h-[75vh] w-full overflow-hidden shadow-md shadow-purple-200">
             <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline>

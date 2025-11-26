@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     navigator.serviceWorker.register('/sw.js')
   }
 
-  document.querySelectorAll('[data-pwa-install]').forEach((btn) => {
+document.querySelectorAll('[data-pwa-install]').forEach((btn) => {
     btn.addEventListener('click', async (ev) => {
       ev.preventDefault()
       if (deferredPrompt) {
@@ -82,4 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
   })
+})
+
+window.addEventListener('load', () => {
+  const pre = document.querySelector('[data-preloader]')
+  if (pre) {
+    pre.classList.add('opacity-0', 'pointer-events-none')
+    setTimeout(() => pre.remove(), 500)
+  }
 })
