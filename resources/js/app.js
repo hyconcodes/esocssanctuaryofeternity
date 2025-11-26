@@ -1,3 +1,9 @@
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   const openBtn = document.getElementById('mobileMenuButton')
   const topNavMenu = document.getElementById('topNavMenu')
@@ -58,4 +64,22 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }, { threshold: 0.15 })
   animEls.forEach((el) => io.observe(el))
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+  }
+
+  document.querySelectorAll('[data-pwa-install]').forEach((btn) => {
+    btn.addEventListener('click', async (ev) => {
+      ev.preventDefault()
+      if (deferredPrompt) {
+        deferredPrompt.prompt()
+        await deferredPrompt.userChoice
+        deferredPrompt = null
+      } else {
+        const href = btn.getAttribute('href') || '/manifest.webmanifest'
+        window.location.href = href
+      }
+    })
+  })
 })

@@ -1,4 +1,6 @@
 @extends('layouts.site')
+@section('title','Contact — ESOCS Platinum Branch')
+@section('meta_description','Reach ESOCS Sanctuary of Eternity: address, phone, email, and service times.')
 
 @section('content')
     <section class="px-4 lg:px-10" data-animate>

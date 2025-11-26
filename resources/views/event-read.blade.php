@@ -1,4 +1,8 @@
 @extends('layouts.site')
+@section('title', ($event->title ?? 'Event') . ' — ESOCS Platinum Branch')
+@section('meta_description', \Illuminate\Support\Str::limit(strip_tags($event->description ?? 'Event details'), 160))
+@section('og_type','article')
+@section('og_image', (!empty($event->flyer_path) ? asset('storage/'.$event->flyer_path) : asset('assets/logo.png')))
 
 @section('content')
     <section class="px-4 lg:px-10 mt-6" data-animate>
@@ -20,4 +24,3 @@
         </div>
     </section>
 @endsection
-

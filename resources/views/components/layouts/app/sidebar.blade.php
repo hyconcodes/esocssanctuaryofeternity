@@ -39,6 +39,12 @@
                         <flux:navlist.item icon="map-pin" :href="route('admin.contact')"
                             :current="request()->routeIs('admin.contact')" wire:navigate>{{ __('Manage Contact') }}
                         </flux:navlist.item>
+                        <flux:navlist.item icon="user-group" :href="route('admin.ministers')"
+                            :current="request()->routeIs('admin.ministers')" wire:navigate>{{ __('Manage Ministers') }}
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="users" :href="route('admin.memberships')"
+                            :current="request()->routeIs('admin.memberships')" wire:navigate>{{ __('Manage Memberships') }}
+                        </flux:navlist.item>
                     </flux:navlist.group>
                 @endif
             @endauth

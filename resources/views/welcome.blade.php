@@ -1,4 +1,34 @@
 @extends('layouts.site')
+@section('title','ESOCS Platinum Branch — Sanctuary of Eternity')
+@section('meta_description','Raising a holy, loving, and faithful people committed to Christ, community, and service.')
+@section('og_type','website')
+@section('structured_data')
+<script type="application/ld+json">
+{!! json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'Organization',
+  'name' => 'ESOCS Sanctuary of Eternity',
+  'url' => url('/'),
+  'logo' => asset('assets/logo.png'),
+  'sameAs' => [
+    'https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw'
+  ]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}
+</script>
+<script type="application/ld+json">
+{!! json_encode([
+  '@context' => 'https://schema.org',
+  '@type' => 'WebSite',
+  'name' => 'ESOCS Sanctuary of Eternity',
+  'url' => url('/'),
+  'potentialAction' => [
+    '@type' => 'SearchAction',
+    'target' => url('/').'?q={search_term_string}',
+    'query-input' => 'required name=search_term_string'
+  ]
+], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) !!}
+</script>
+@endsection
 
 @section('content')
     <section class="relative" data-animate>
@@ -12,15 +42,16 @@
                     <h1 class="text-3xl lg:text-5xl font-bold">Welcome to ESOCS Platinum Branch</h1>
                     <p class="mt-4 text-white/90">Raising a holy, loving, and faithful people committed to Christ, community, and service.</p>
                     <div class="mt-6 flex flex-wrap gap-3">
-                        <a href="{{ route('register') }}" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Join Us</a>
-                        <a href="#" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a>
+                        <a href="{{ route('membership') }}" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Join Us</a>
+                        <a href="https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a>
+                        {{-- <a href="/manifest.webmanifest" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition" data-pwa-install>Download ESOCS SOE App</a> --}}
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="px-4 lg:px-10 mt-10" data-animate>
+    <section class="px-4 sm:px-6 lg:px-10 mt-10" data-animate>
         <div class="grid lg:grid-cols-2 gap-6 items-center">
             <div class="rounded-sm overflow-hidden shadow-md shadow-purple-200">
                 <img src="{{ asset("assets/whoweare.jpg") }}" alt="Congregation" class="w-full h-[320px] object-cover" />
@@ -60,15 +91,18 @@
 
     <section class="px-4 lg:px-10 mt-10" data-animate>
         @php
-            $event = \App\Models\Event::query()->orderBy('is_featured','desc')->orderBy('starts_at','asc')->first();
+            $event = null;
+            if (\Illuminate\Support\Facades\Schema::hasTable('events')) {
+                $event = \App\Models\Event::query()->orderBy('is_featured','desc')->orderBy('starts_at','asc')->first();
+            }
         @endphp
         <div class="mb-4">
-            <h2 class="text-2xl font-semibold text-[#45016a]">Featured Event</h2>
+            <h2 class="text-2xl sm:text-3xl font-semibold text-[#45016a]">Featured Event</h2>
         </div>
-        <div class="rounded-sm overflow-hidden shadow-md shadow-purple-200">
+        <div class="rounded-sm overflow-hidden shadow-md shadow-purple-200 max-w-7xl mx-auto">
             @if($event)
-                <div class="grid lg:grid-cols-2">
-                    <div class="relative h-56 lg:h-full">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    <div class="relative h-64 sm:h-80 lg:h-full">
                         @if($event->flyer_path)
                             <img src="{{ asset('storage/'.$event->flyer_path) }}" alt="Flyer" class="absolute inset-0 w-full h-full object-cover" />
                         @else
@@ -76,8 +110,8 @@
                         @endif
                         <div class="absolute inset-0 bg-black/20"></div>
                     </div>
-                    <div class="p-6 bg-[#45016a] text-white">
-                        <h2 class="text-3xl font-bold truncate">{{ $event->title }}</h2>
+                    <div class="p-5 sm:p-6 lg:p-8 bg-[#45016a] text-white">
+                        <h2 class="text-2xl sm:text-3xl font-bold truncate">{{ $event->title }}</h2>
                         <p class="mt-2 text-white/90">{{ \Illuminate\Support\Str::limit($event->description, 160) }}</p>
                         <div class="mt-4 flex flex-wrap gap-3">
                             <div class="flex items-center gap-2 rounded-sm bg-white/10 px-3 py-2">
@@ -93,15 +127,15 @@
                                 <span class="text-sm">{{ $event->category }}</span>
                             </div>
                         </div>
-                        <div class="mt-6 flex gap-3">
+                        <div class="mt-6 flex flex-wrap gap-3">
                             <a href="{{ route('events.read', $event->slug) }}" class="rounded-sm px-4 py-2 bg-white text-[#45016a] hover:bg-[#ffc0cb] transition">Read more</a>
                         </div>
                     </div>
                 </div>
             @else
-                <div class="p-6 bg-[#45016a] text-white">
+                <div class="p-5 sm:p-6 bg-[#45016a] text-white">
                     <div class="text-center">
-                        <div class="text-2xl font-semibold">No upcoming events</div>
+                        <div class="text-xl sm:text-2xl font-semibold">No upcoming events</div>
                         <div class="text-white/80">Stay tuned for updates.</div>
                     </div>
                 </div>
@@ -124,7 +158,10 @@
             </div>
             <div id="homeGallerySlider" class="mt-4 flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory">
                 @php
-                    $images = \App\Models\GalleryImage::orderBy('is_featured','desc')->orderBy('created_at','desc')->take(12)->get();
+                    $images = collect();
+                    if (\Illuminate\Support\Facades\Schema::hasTable('gallery_images')) {
+                        $images = \App\Models\GalleryImage::orderBy('is_featured','desc')->orderBy('created_at','desc')->take(12)->get();
+                    }
                 @endphp
                 @forelse($images as $img)
                     <div class="relative flex-none w-72 h-56 rounded-sm overflow-hidden snap-start" data-category="{{ $img->category ?? '' }}">
@@ -169,7 +206,10 @@
                 <h2 class="text-2xl font-semibold text-[#45016a]">Audios</h2>
             </div>
             @php
-                $latestAudio = \App\Models\Audio::orderBy('is_featured','desc')->first();
+                $latestAudio = null;
+                if (\Illuminate\Support\Facades\Schema::hasTable('audios')) {
+                    $latestAudio = \App\Models\Audio::orderBy('is_featured','desc')->first();
+                }
             @endphp
             @if($latestAudio)
                 <div class="mt-6 rounded-sm p-5 bg-white border shadow-md shadow-purple-200">
@@ -213,7 +253,10 @@
             </div>
             <div id="homeTestimoniesCarousel" class="mt-4 relative min-h-[260px]" data-carousel data-autoplay data-interval="4000">
                 @php
-                    $testimonies = \App\Models\Testimony::orderBy('is_featured','desc')->orderBy('created_at','desc')->take(12)->get();
+                    $testimonies = collect();
+                    if (\Illuminate\Support\Facades\Schema::hasTable('testimonies')) {
+                        $testimonies = \App\Models\Testimony::orderBy('is_featured','desc')->orderBy('created_at','desc')->take(12)->get();
+                    }
                 @endphp
                 @forelse($testimonies as $idx => $t)
                     <div class="transition duration-500 ease-in-out @if($idx === 0) opacity-100 relative @else opacity-0 absolute inset-0 pointer-events-none @endif" data-carousel-item data-index="{{ $idx }}">
@@ -246,7 +289,10 @@
         <div class="rounded-sm overflow-hidden shadow-md shadow-purple-200 relative">
             <div class="absolute inset-0 bg-gradient-to-br from-[#45016a] to-[#ffc0cb]"></div>
             @php
-                $giving = \App\Models\Giving::orderBy('is_featured','desc')->orderBy('created_at','desc')->first();
+                $giving = null;
+                if (\Illuminate\Support\Facades\Schema::hasTable('givings')) {
+                    $giving = \App\Models\Giving::orderBy('is_featured','desc')->orderBy('created_at','desc')->first();
+                }
             @endphp
             <div class="relative p-6 lg:p-10">
                 <div class="grid lg:grid-cols-2 gap-8 items-center text-white">
@@ -285,11 +331,16 @@
         <div class="rounded-sm p-6 bg-white shadow-md shadow-purple-200">
             <div class="grid lg:grid-cols-2 gap-6">
                 <div>
-                    @php $setting = \App\Models\ContactSetting::query()->orderBy('created_at','desc')->first(); @endphp
+                    @php
+                        $setting = null;
+                        if (\Illuminate\Support\Facades\Schema::hasTable('contact_settings')) {
+                            $setting = \App\Models\ContactSetting::query()->orderBy('created_at','desc')->first();
+                        }
+                    @endphp
                     <h2 class="text-2xl font-semibold text-[#45016a]">Contact Us</h2>
-                    <p class="mt-2 text-neutral-700">Address: {{ $setting->address ?? '54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.' }}</p>
-                    <p class="text-neutral-700">Phone: {{ $setting->phone ?? '+234-8138703124' }}</p>
-                    <p class="text-neutral-700">Email: {{ $setting->email ?? 'sanctuaryofeternityhop@gmail.com' }}</p>
+                    <p class="mt-2 text-neutral-700">Address: {{ optional($setting)->address ?? '54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.' }}</p>
+                    <p class="text-neutral-700">Phone: {{ optional($setting)->phone ?? '+234-8138703124' }}</p>
+                    <p class="text-neutral-700">Email: {{ optional($setting)->email ?? 'sanctuaryofeternityhop@gmail.com' }}</p>
                     <div class="mt-4">
                         @if (session('message'))
                             <div class="mb-3 rounded-sm bg-green-100 text-green-700 p-3">{{ session('message') }}</div>

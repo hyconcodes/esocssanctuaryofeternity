@@ -111,8 +111,8 @@ $cancelEdit = function () {
 
 ?>
 
-<main class="px-4 lg:px-10 mt-6 dark:bg-zinc-900 dark:text-neutral-100" data-animate>
-    <div class="rounded-sm p-6 bg-white shadow-md shadow-purple-200 dark:bg-zinc-900 dark:shadow-black/30">
+<main class="px-4 sm:px-6 lg:px-10 mt-6 dark:bg-zinc-900 dark:text-neutral-100" data-animate>
+    <div class="rounded-sm p-6 bg-white shadow-md shadow-purple-200 dark:bg-zinc-900 dark:shadow-black/30 max-w-7xl mx-auto">
         @if (session()->has('message'))
             <div class="mb-4 p-4 rounded-sm bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">
                 {{ session('message') }}
@@ -121,16 +121,16 @@ $cancelEdit = function () {
 
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div class="text-2xl font-semibold text-[#45016a]">Manage Events</div>
-            <div class="flex gap-2">
+            <div class="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
                 <input 
                     type="text" 
                     wire:model.live.debounce.300ms="q" 
                     placeholder="Search events..." 
-                    class="rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 placeholder:text-gray-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100 dark:placeholder:text-gray-500" 
+                    class="w-full sm:w-64 rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 placeholder:text-gray-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100 dark:placeholder:text-gray-500" 
                 />
                 <select 
                     wire:model.live="category" 
-                    class="rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100"
+                    class="w-full sm:w-40 rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100"
                 >
                     <option value="">All Categories</option>
                     <option value="program">Program</option>
@@ -140,7 +140,7 @@ $cancelEdit = function () {
             </div>
         </div>
 
-        <div class="mt-6 grid lg:grid-cols-2 gap-6">
+        <div class="mt-6 grid md:grid-cols-2 gap-6">
             <div class="rounded-sm p-5 border border-[#ffc0cb] bg-white shadow-md shadow-purple-200 dark:bg-zinc-900 dark:border-zinc-700 dark:shadow-black/30">
                 <div class="text-xl font-semibold text-[#45016a]">
                     @if($editing) Edit Event @else Create Event @endif
@@ -161,24 +161,24 @@ $cancelEdit = function () {
                         type="text" 
                         wire:model="title" 
                         placeholder="Event Title *" 
-                        class="rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100" 
+                        class="w-full rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100" 
                     />
                     
                     <textarea 
                         wire:model="description" 
                         rows="4" 
                         placeholder="Event Description" 
-                        class="rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100"
+                        class="w-full rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100"
                     ></textarea>
                     
                     <input 
                         type="text" 
                         wire:model="venue" 
                         placeholder="Venue Location" 
-                        class="rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100" 
+                        class="w-full rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100" 
                     />
                     
-                    <div class="grid lg:grid-cols-2 gap-3">
+                    <div class="grid md:grid-cols-2 gap-3">
                         <div>
                             <label class="block text-sm text-gray-600 mb-1 dark:text-gray-300">Start Date & Time *</label>
                             <input 
@@ -199,7 +199,7 @@ $cancelEdit = function () {
                     
                     <select 
                         wire:model="category" 
-                        class="rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100"
+                        class="w-full rounded-sm border border-gray-300 p-3 focus:outline-none focus:border-purple-400 dark:bg-zinc-800 dark:border-zinc-700 dark:text-neutral-100"
                     >
                         <option value="">Select Category</option>
                         <option value="program">Program</option>
@@ -217,7 +217,7 @@ $cancelEdit = function () {
                         />
                         @if ($flyer && is_object($flyer))
                             <div class="mt-2">
-                                <img src="{{ $flyer->temporaryUrl() }}" alt="Preview" class="h-32 rounded-sm object-cover" />
+                                <img src="{{ $flyer->temporaryUrl() }}" alt="Preview" class="h-48 sm:h-32 w-full rounded-sm object-cover" />
                             </div>
                         @endif
                     </div>
@@ -253,12 +253,12 @@ $cancelEdit = function () {
                     <div class="grid gap-4">
                         @foreach($this->events as $ev)
                             <div class="rounded-sm p-5 border bg-white shadow-md shadow-purple-200 dark:bg-zinc-900 dark:border-zinc-700 dark:shadow-black/30">
-                                <div class="flex items-start gap-4">
+                                <div class="flex flex-col sm:flex-row items-start gap-4">
                                     @if($ev->flyer_path)
                                         <img 
                                             src="{{ asset('storage/'.$ev->flyer_path) }}" 
                                             alt="Event Flyer" 
-                                            class="h-20 w-32 rounded-sm object-cover flex-shrink-0" 
+                                            class="h-40 w-full sm:h-20 sm:w-32 rounded-sm object-cover flex-shrink-0" 
                                         />
                                     @endif
                                     <div class="flex-1 min-w-0">

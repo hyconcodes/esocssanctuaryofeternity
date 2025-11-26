@@ -33,8 +33,8 @@
                         <li><a href="{{ route('giving') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Giving</a></li>
                         <li><a href="{{ route('ministers') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Ministers</a></li>
                         <li><a href="{{ route('contact') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Contact</a></li>
-                        {{-- <li class="ms-2"><a href="#" class="rounded-sm px-4 py-2 bg-white text-[#45016a] font-semibold hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a></li> --}}
-                        <li><a href="{{ route('register') }}" class="rounded-sm px-4 py-2 border border-white/30 hover:bg-[#ffc0cb] transition">Join Us</a></li>
+                        <li class="ms-2"><a href="https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw" class="rounded-sm px-4 py-2 bg-white text-[#45016a] font-semibold hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a></li>
+                        <li><a href="{{ route('membership') }}" class="rounded-sm px-4 py-2 border border-white/30 hover:bg-[#ffc0cb] transition">Join Us</a></li>
                     </ul>
                 </nav>
             </div>
@@ -55,8 +55,8 @@
                     <a href="{{ route('ministers') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Ministers</a>
                     <a href="{{ route('contact') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Contact</a>
                     <div class="grid grid-cols-2 gap-2 mt-2">
-                        {{-- <a href="#" class="rounded-sm px-4 py-2 text-center bg-white text-[#45016a] font-semibold hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a> --}}
-                        <a href="{{ route('register') }}" class="rounded-sm px-4 py-2 text-center border border-white/30 hover:bg-[#ffc0cb] transition">Join Us</a>
+                        <a href="https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw" class="rounded-sm px-4 py-2 text-center bg-white text-[#45016a] font-semibold hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a>
+                        <a href="{{ route('membership') }}" class="rounded-sm px-4 py-2 text-center border border-white/30 hover:bg-[#ffc0cb] transition">Join Us</a>
                     </div>
                 </div>
             </div>
@@ -71,38 +71,52 @@
 
         <footer class="mt-10">
             <div class="bg-[#45016a] text-white shadow-md shadow-purple-200">
-                <div class="grid gap-6 p-6 lg:grid-cols-4">
+                <div class="grid gap-6 p-6 lg:grid-cols-3">
                     <div>
                         <div class="flex items-center gap-2">
                             <img src="/assets/logo.png" alt="Logo" class="h-8 w-12 rounded-lg" />
                             <div class="font-semibold">ESOCS Platinum Branch</div>
                         </div>
                         <p class="mt-3 text-sm text-white/80">Sanctuary of Eternity. Raising a holy, loving, and faithful people.</p>
+                        <div class="mt-3">
+                            <a href="/manifest.webmanifest" data-pwa-install class="inline-block rounded-sm px-4 py-2 bg-white text-[#45016a] hover:bg-[#ffc0cb] transition">Download ESOCS SOE App</a>
+                        </div>
                     </div>
                     <div>
                         <div class="font-semibold">Quick Links</div>
-                        <ul class="mt-3 space-y-2 text-sm">
-                            {{-- <li><a href="{{ route('about') }}" class="hover:text-[#ffc0cb] transition">About</a></li> --}}
-                            <li><a href="{{ route('events') }}" class="hover:text-[#ffc0cb] transition">Events</a></li>
-                            <li><a href="{{ route('gallery') }}" class="hover:text-[#ffc0cb] transition">Gallery</a></li>
-                            <li><a href="{{ route('giving') }}" class="hover:text-[#ffc0cb] transition">Giving</a></li>
-                            <li><a href="{{ route('audios') }}" class="hover:text-[#ffc0cb] transition">Audios</a></li>
-                            <li><a href="{{ route('ministers') }}" class="hover:text-[#ffc0cb] transition">Ministers</a></li>
-                            <li><a href="{{ route('contact') }}" class="hover:text-[#ffc0cb] transition">Contact</a></li>
-                        </ul>
+                        <div class="mt-3 flex flex-wrap gap-2 text-sm">
+                            <a href="{{ route('events') }}" class="rounded-sm px-3 py-1 bg-white/10 hover:bg-white/20 transition">Events</a>
+                            <a href="{{ route('gallery') }}" class="rounded-sm px-3 py-1 bg-white/10 hover:bg-white/20 transition">Gallery</a>
+                            <a href="{{ route('giving') }}" class="rounded-sm px-3 py-1 bg-white/10 hover:bg-white/20 transition">Giving</a>
+                            <a href="{{ route('audios') }}" class="rounded-sm px-3 py-1 bg-white/10 hover:bg-white/20 transition">Audios</a>
+                            <a href="{{ route('ministers') }}" class="rounded-sm px-3 py-1 bg-white/10 hover:bg-white/20 transition">Ministers</a>
+                            <a href="{{ route('contact') }}" class="rounded-sm px-3 py-1 bg-white/10 hover:bg-white/20 transition">Contact</a>
+                        </div>
                     </div>
                     <div>
                         <div class="font-semibold">Contact</div>
-                        @php $setting = \App\Models\ContactSetting::query()->orderBy('created_at','desc')->first(); @endphp
+                        @php
+                            $setting = null;
+                            if (\Illuminate\Support\Facades\Schema::hasTable('contact_settings')) {
+                                $setting = \App\Models\ContactSetting::query()->orderBy('created_at','desc')->first();
+                            }
+                        @endphp
                         <ul class="mt-3 space-y-2 text-sm text-white/80">
-                            <li>{{ $setting->address ?? 'Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt. 54' }}</li>
-                            <li>{{ $setting->phone ?? '+234-8138703124' }}</li>
-                            <li>{{ $setting->email ?? 'sanctuaryofeternityhop@gmail.com' }}</li>
+                            <li>{{ optional($setting)->address ?? 'Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt. 54' }}</li>
+                            <li>{{ optional($setting)->phone ?? '+234-8138703124' }}</li>
+                            <li>{{ optional($setting)->email ?? 'sanctuaryofeternityhop@gmail.com' }}</li>
                         </ul>
                         <div class="mt-4 font-semibold">Service Times</div>
                         <ul class="mt-2 space-y-1 text-sm text-white/80">
-                            <li>Sun: 8:00am & 10:00am</li>
-                            <li>Wed: 5:00pm (Bible Study)</li>
+                            <li>Tuesdays, 5:30 PM --- Bible Study -- The Exploration.</li>
+                            <li>Fridays, 5:30 PM — Anointing And Deliverances Service ( ADS)</li>
+                            <li class="mt-2 font-semibold text-white">SUNDAY WORSHIP SESSIONS</li>
+                            <li>First Session — Workers Consecration and Ignite Prayers , 7:30 -- 8:00 AM</li>
+                            <li>Second Session — Sunday School Service, 8:00 -- 9:00 AM</li>
+                            <li>Third Session — Super Glorious Service, 9:00 - 11:30 AM.</li>
+                            <li class="mt-2 font-semibold text-white">Faith Foundation School</li>
+                            <li>Saturdays , 10:00 AM</li>
+                            <li>Sundays ,  11:45 AM.</li>
                         </ul>
                     </div>
                     <div>

@@ -28,11 +28,11 @@ $load = function () {
         $this->address = '54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.';
         $this->phone = '+234-8138703124';
         $this->email = 'sanctuaryofeternityhop@gmail.com';
-        $this->map_embed_url = 'https://www.google.com/maps?q='+encodeURIComponent('54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.')+'&output=embed';
+        $this->map_embed_url = 'https://www.google.com/maps?q=' . urlencode('54, Ikwere Road, Adjacent Rumuokuta Flyover Bridge, Rumuokuta Port Harcourt.') . '&output=embed';
     }
 };
 
-$messages = computed(function () {
+$contactMessages = computed(function () {
     $q = $this->q;
     $query = ContactMessage::query()->orderBy('created_at','desc');
     if ($q) {
@@ -102,11 +102,11 @@ $deleteMsg = function ($id) {
                         <div class="text-xl font-semibold text-[#45016a]">Messages</div>
                         <input type="text" wire:model.live.debounce.300ms="q" placeholder="Search" class="rounded-2xl border p-3 dark:bg-zinc-800 dark:border-zinc-700" />
                     </div>
-                    @if($this->messages->isEmpty())
+                    @if($this->contactMessages->isEmpty())
                         <div class="mt-4 text-sm text-neutral-600">No messages yet.</div>
                     @else
                         <div class="mt-4 grid gap-3">
-                            @foreach($this->messages as $m)
+                            @foreach($this->contactMessages as $m)
                                 <div class="rounded-2xl p-4 border bg-white shadow-sm dark:bg-zinc-900 dark:border-zinc-700">
                                     <div class="flex items-center justify-between">
                                         <div class="font-semibold text-[#45016a] truncate">{{ $m->name ?: 'Anonymous' }}</div>
@@ -123,7 +123,7 @@ $deleteMsg = function ($id) {
                                 </div>
                             @endforeach
                         </div>
-                        <div class="mt-4">{{ $this->messages->links() }}</div>
+                        <div class="mt-4">{{ $this->contactMessages->links() }}</div>
                     @endif
                 </div>
             </div>

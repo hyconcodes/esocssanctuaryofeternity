@@ -1,4 +1,6 @@
 @extends('layouts.site')
+@section('title','Events — ESOCS Platinum Branch')
+@section('meta_description','Upcoming and past events at ESOCS Sanctuary of Eternity in Port Harcourt.')
 
 @section('content')
     <section class="px-4 lg:px-10" data-animate>

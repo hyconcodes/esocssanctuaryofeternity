@@ -1,4 +1,6 @@
 @extends('layouts.site')
+@section('title','Gallery — ESOCS Platinum Branch')
+@section('meta_description','Photos from worship, outreaches, programs, choir, and youth activities at ESOCS Sanctuary of Eternity.')
 
 @section('content')
     <section class="px-4 lg:px-10" data-animate>
@@ -21,7 +23,7 @@
                             <a href="{{ asset('storage/'.$img->image_path) }}" class="glightbox block" data-gallery="mainGallery" @if($img->title) data-title="{{ $img->title }}" @endif @if($img->description) data-description="{{ $img->description }}" @endif>
                                 <img src="{{ asset('storage/'.$img->image_path) }}" alt="Gallery" class="w-full object-cover transition duration-300 group-hover:scale-105" />
                             </a>
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition pointer-events-none"></div>
                             @if($img->category)
                                 <span class="absolute top-2 left-2 z-10 px-2 py-1 text-xs rounded-full bg-white/20 text-white backdrop-blur">{{ ucfirst($img->category) }}</span>
                             @endif
