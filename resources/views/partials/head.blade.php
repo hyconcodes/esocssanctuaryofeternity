@@ -2,18 +2,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <title>@yield('title', $title ?? config('app.name'))</title>
-<meta name="description" content="@yield('meta_description', 'Sanctuary of Eternity. Raising a holy, loving, and faithful people.')">
+<meta name="description" content="@yield('meta_description', 'Sanctuary of Eternity. Home of signs and wonder..')">
 <link rel="canonical" href="{{ url()->current() }}">
 <meta name="robots" content="index,follow">
 <meta property="og:site_name" content="ESOCS Sanctuary of Eternity">
 <meta property="og:type" content="@yield('og_type','website')">
 <meta property="og:url" content="{{ url()->current() }}">
 <meta property="og:title" content="@yield('title', $title ?? config('app.name'))">
-<meta property="og:description" content="@yield('meta_description', 'Sanctuary of Eternity. Raising a holy, loving, and faithful people.')">
+<meta property="og:description" content="@yield('meta_description', 'Sanctuary of Eternity. Home of signs and wonder..')">
 <meta property="og:image" content="@yield('og_image', asset('assets/logo.png'))">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="@yield('title', $title ?? config('app.name'))">
-<meta name="twitter:description" content="@yield('meta_description', 'Sanctuary of Eternity. Raising a holy, loving, and faithful people.')">
+<meta name="twitter:description" content="@yield('meta_description', 'Sanctuary of Eternity. Home of signs and wonder..')">
 <meta name="twitter:image" content="@yield('og_image', asset('assets/logo.png'))">
 
 <link rel="icon" href="/favicon.ico" sizes="any">

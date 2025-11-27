@@ -1,6 +1,6 @@
 @extends('layouts.site')
 @section('title','ESOCS Platinum Branch — Sanctuary of Eternity')
-@section('meta_description','Raising a holy, loving, and faithful people committed to Christ, community, and service.')
+@section('meta_description','Home of signs and wonder.')
 @section('og_type','website')
 @section('structured_data')
 <script type="application/ld+json">
@@ -34,6 +34,22 @@
     <div data-preloader class="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-zinc-900 transition-opacity">
         <img src="/assets/logo.png" alt="Logo" class="h-20 w-24 rounded-lg animate-pulse" />
     </div>
+    @php
+        $activeAnnouncement = null;
+        if (\Illuminate\Support\Facades\Schema::hasTable('announcements')) {
+            $activeAnnouncement = \App\Models\Announcement::where('is_active', true)->orderBy('created_at','desc')->first();
+        }
+    @endphp
+    @if($activeAnnouncement && $activeAnnouncement->flyer_path)
+        <div data-announcement-modal class="fixed inset-0 z-[60] hidden bg-black/60">
+            <div class="relative mx-auto mt-24 w-[calc(100%-2rem)] max-w-md">
+                <button type="button" data-announcement-close class="absolute -right-2 -top-2 rounded-full bg-white text-[#45016a] p-2 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5"><path fill-rule="evenodd" d="M6.225 4.811a.75.75 0 0 1 1.06 0L12 9.525l4.715-4.714a.75.75 0 0 1 1.06 1.06L13.06 10.585l4.715 4.715a.75.75 0 1 1-1.06 1.06L12 11.645l-4.715 4.715a.75.75 0 1 1-1.06-1.06l4.714-4.715-4.714-4.715a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"/></svg>
+                </button>
+                <img src="{{ asset('storage/'.$activeAnnouncement->flyer_path) }}" alt="Announcement" class="rounded-sm w-full h-auto object-contain" />
+            </div>
+        </div>
+    @endif
     <section class="relative" data-animate>
         <div class="relative h-[70vh] lg:h-[75vh] w-full overflow-hidden shadow-md shadow-purple-200">
             <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline>
@@ -42,8 +58,9 @@
             <div class="absolute inset-0 bg-[#45016a]/30"></div>
             <div class="relative z-10 flex h-full items-center px-6 lg:px-10">
                 <div class="max-w-2xl text-white">
-                    <h1 class="text-3xl lg:text-5xl font-bold">Welcome to ESOCS Platinum Branch</h1>
-                    <p class="mt-4 text-white/90">Raising a holy, loving, and faithful people committed to Christ, community, and service.</p>
+                    <h1 class="text-3xl lg:text-5xl font-bold">ESOCS Sanctuary of Eternity</h1>
+                    <div class="mt-1 text-sm lg:text-base font-medium">Platinum Branch</div>
+                    <p class="mt-4 text-white/90">Home of signs and wonder.</p>
                     <div class="mt-6 flex flex-wrap gap-3">
                         <a href="{{ route('membership') }}" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Join Us</a>
                         <a href="https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a>

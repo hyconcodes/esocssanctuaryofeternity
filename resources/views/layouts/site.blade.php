@@ -75,9 +75,12 @@
                     <div>
                         <div class="flex items-center gap-2">
                             <img src="/assets/logo.png" alt="Logo" class="h-8 w-12 rounded-lg" />
-                            <div class="font-semibold">ESOCS Platinum Branch</div>
+                            <div>
+                                <div class="font-semibold leading-tight">ESOCS Sanctuary of Eternity</div>
+                                <div class="text-xs text-white/80">Platinum Branch</div>
+                            </div>
                         </div>
-                        <p class="mt-3 text-sm text-white/80">Sanctuary of Eternity. Raising a holy, loving, and faithful people.</p>
+                        <p class="mt-3 text-sm text-white/80">Sanctuary of Eternity. Home of signs and wonder.</p>
                         <div class="mt-3">
                             <a href="/manifest.webmanifest" data-pwa-install class="inline-block rounded-sm px-4 py-2 bg-white text-[#45016a] hover:bg-[#ffc0cb] transition">Download ESOCS SOE App</a>
                         </div>
@@ -135,8 +138,8 @@
                     </div>
                 </div>
                 <div class="border-t border-white/20 px-6 py-3 text-sm text-white/80 flex items-center justify-between">
-                    <span>© {{ date('Y') }} ESOCS Platinum Branch</span>
-                    <span>Sanctuary of Eternity</span>
+                    <span>© {{ date('Y') }} ESOCS Sanctuary of Eternity</span>
+                    <span>Platinum Branch</span>
                 </div>
             </div>
         </footer>

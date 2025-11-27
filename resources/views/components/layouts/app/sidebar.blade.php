@@ -45,6 +45,9 @@
                         <flux:navlist.item icon="users" :href="route('admin.memberships')"
                             :current="request()->routeIs('admin.memberships')" wire:navigate>{{ __('Manage Memberships') }}
                         </flux:navlist.item>
+                        <flux:navlist.item icon="megaphone" :href="route('admin.announcements')"
+                            :current="request()->routeIs('admin.announcements')" wire:navigate>{{ __('Manage Announcements') }}
+                        </flux:navlist.item>
                     </flux:navlist.group>
                 @endif
             @endauth

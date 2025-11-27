@@ -88,6 +88,19 @@ window.addEventListener('load', () => {
   const pre = document.querySelector('[data-preloader]')
   if (pre) {
     pre.classList.add('opacity-0', 'pointer-events-none')
-    setTimeout(() => pre.remove(), 500)
+    setTimeout(() => pre.remove(), 300)
+  }
+
+  const ann = document.querySelector('[data-announcement-modal]')
+  if (ann) {
+    ann.classList.remove('hidden')
+  }
+})
+
+document.addEventListener('click', (e) => {
+  const close = e.target.closest('[data-announcement-close]')
+  if (close) {
+    const m = close.closest('[data-announcement-modal]')
+    if (m) m.classList.add('hidden')
   }
 })

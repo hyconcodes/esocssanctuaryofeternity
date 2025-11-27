@@ -72,6 +72,10 @@ Volt::route('admin/memberships', 'memberships.manage')
     ->middleware(['auth', 'admin'])
     ->name('admin.memberships');
 
+Volt::route('admin/announcements', 'announcements.manage')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.announcements');
+
 Route::post('/contact', function (\Illuminate\Http\Request $request) {
     $data = $request->validate([
         'name' => 'nullable|string|max:255',
