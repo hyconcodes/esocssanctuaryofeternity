@@ -80,7 +80,7 @@
                                 <div class="text-xs text-white/80">Platinum Branch</div>
                             </div>
                         </div>
-                        <p class="mt-3 text-sm text-white/80">Sanctuary of Eternity. Home of signs and wonder.</p>
+                        <p class="mt-3 text-sm text-white/80">Sanctuary of Eternity. Home Of Success , Signs And Wonders.</p>
                         <div class="mt-3">
                             <a href="/manifest.webmanifest" data-pwa-install class="inline-block rounded-sm px-4 py-2 bg-white text-[#45016a] hover:bg-[#ffc0cb] transition">Download ESOCS SOE App</a>
                         </div>

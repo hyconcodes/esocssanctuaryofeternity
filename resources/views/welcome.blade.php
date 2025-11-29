@@ -1,6 +1,6 @@
 @extends('layouts.site')
 @section('title','ESOCS Platinum Branch — Sanctuary of Eternity')
-@section('meta_description','Home of signs and wonder.')
+@section('meta_description','Home Of Success , Signs And Wonders.')
 @section('og_type','website')
 @section('structured_data')
 <script type="application/ld+json">
@@ -60,7 +60,7 @@
                 <div class="max-w-2xl text-white">
                     <h1 class="text-3xl lg:text-5xl font-bold">ESOCS Sanctuary of Eternity</h1>
                     <div class="mt-1 text-sm lg:text-base font-medium">Platinum Branch</div>
-                    <p class="mt-4 text-white/90">Home of signs and wonder.</p>
+                    <p class="mt-4 text-white/90">Home Of Success , Signs And Wonders.</p>
                     <div class="mt-6 flex flex-wrap gap-3">
                         <a href="{{ route('membership') }}" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Join Us</a>
                         <a href="https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a>
