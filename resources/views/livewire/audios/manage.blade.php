@@ -146,10 +146,14 @@ $cancelEdit = function () {
                         <option value="bible-study">Bible Study</option>
                         <option value="youth-fellowship">Youth Fellowship</option>
                     </select>
-                    <input type="file" wire:model.live="audio" accept="audio/*" class="rounded-sm border p-3 dark:bg-zinc-800 dark:border-zinc-700" />
+                    <input type="file" wire:model.live="audio" accept="audio/*" class="rounded-sm border p-3 dark:bg-zinc-800 dark:border-zinc-700 {{ $errors->has('audio') ? 'border-red-500' : '' }}" @if(!$editing) required @endif />
+                    <div class="text-xs text-neutral-600 dark:text-neutral-400">mp3, mp4, wav, ogg · max 8MB · required when adding</div>
+                    @if($errors->has('audio'))
+                        <div class="text-xs text-red-600 dark:text-red-300">{{ $errors->first('audio') }}</div>
+                    @endif
                     <label class="flex items-center gap-2"><input type="checkbox" wire:model.live="is_featured" /> <span>Feature on site</span></label>
                     <div class="flex gap-2">
-                        <button wire:click="save" class="rounded-sm bg-[#45016a] text-white px-4 py-2">Save</button>
+                        <button wire:click="save" class="rounded-sm bg-[#45016a] text-white px-4 py-2 {{ (!$editing && !$audio) ? 'opacity-50 cursor-not-allowed' : '' }}" {{ (!$editing && !$audio) ? 'disabled' : '' }}>Save</button>
                         <button wire:click="cancelEdit" class="rounded-sm border px-4 py-2">Reset</button>
                     </div>
                 </div>
