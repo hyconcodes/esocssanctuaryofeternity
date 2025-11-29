@@ -77,7 +77,7 @@ $save = function () {
         throw $ve;
     } catch (\Throwable $e) {
         Log::error('Failed to save audio', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString(), 'user_id' => auth()->id()]);
-        session()->flash('error', 'Failed to save audio');
+        session()->flash('error', 'Failed to save audio', ['error' => $e->getMessage()]);
     }
 };
 
