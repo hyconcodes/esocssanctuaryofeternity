@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Audio;
+use Illuminate\Support\Facades\Log;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use function Livewire\Volt\{state, computed, uses};
@@ -34,39 +35,50 @@ $audios = computed(function () {
 });
 
 $save = function () {
-    $this->validate([
-        'title' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'category' => 'nullable|string|in:sunday-services,bible-study,youth-fellowship',
-        'audio' => $this->editing ? 'nullable|mimetypes:audio/mpeg,audio/mp4,audio/x-wav,audio/ogg|max:8192' : 'required|mimetypes:audio/mpeg,audio/mp4,audio/x-wav,audio/ogg|max:8192',
-        'is_featured' => 'boolean',
-    ]);
+    try {
+        $this->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category' => 'nullable|string|in:sunday-services,bible-study,youth-fellowship',
+            'audio' => $this->editing ? 'nullable|mimetypes:audio/mpeg,audio/mp4,audio/x-wav,audio/ogg|max:8192' : 'required|mimetypes:audio/mpeg,audio/mp4,audio/x-wav,audio/ogg|max:8192',
+            'is_featured' => 'boolean',
+        ]);
 
-    $data = [
-        'title' => $this->title,
-        'description' => $this->description ?: null,
-        'category' => $this->category ?: null,
-        'is_featured' => (bool) $this->is_featured,
-    ];
+        $data = [
+            'title' => $this->title,
+            'description' => $this->description ?: null,
+            'category' => $this->category ?: null,
+            'is_featured' => (bool) $this->is_featured,
+        ];
 
-    if ($this->audio && is_object($this->audio)) {
-        $path = $this->audio->store('audios', 'public');
-        $data['audio_path'] = $path;
-    }
-
-    if ($this->editing) {
-        $item = Audio::find($this->editing);
-        if ($item) {
-            $item->update($data);
-            session()->flash('message', 'Audio updated');
+        if ($this->audio && is_object($this->audio)) {
+            $path = $this->audio->store('audios', 'public');
+            $data['audio_path'] = $path;
         }
-    } else {
-        Audio::create($data);
-        session()->flash('message', 'Audio added');
-    }
 
-    $this->reset(['editing','title','description','category','is_featured','audio']);
-    $this->resetPage();
+        if ($this->editing) {
+            $item = Audio::find($this->editing);
+            if ($item) {
+                $item->update($data);
+                session()->flash('message', 'Audio updated');
+            } else {
+                session()->flash('error', 'Audio not found');
+                Log::error('Audio not found during update', ['id' => $this->editing, 'user_id' => auth()->id()]);
+            }
+        } else {
+            Audio::create($data);
+            session()->flash('message', 'Audio added');
+        }
+
+        $this->reset(['editing','title','description','category','is_featured','audio']);
+        $this->resetPage();
+    } catch (\Illuminate\Validation\ValidationException $ve) {
+        Log::warning('Audio validation failed', ['errors' => $ve->errors(), 'user_id' => auth()->id()]);
+        throw $ve;
+    } catch (\Throwable $e) {
+        Log::error('Failed to save audio', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString(), 'user_id' => auth()->id()]);
+        session()->flash('error', 'Failed to save audio');
+    }
 };
 
 $edit = function ($id) {
@@ -90,6 +102,16 @@ $cancelEdit = function () {
 
 <section class="px-4 lg:px-10 mt-6" data-animate>
     <div class="rounded-sm p-6 bg-white shadow-md shadow-purple-200 dark:bg-zinc-900 dark:text-neutral-100">
+        @if (session()->has('message'))
+            <div class="mb-4 p-4 rounded-sm bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">
+                {{ session('message') }}
+            </div>
+        @endif
+        @if (session()->has('error'))
+            <div class="mb-4 p-4 rounded-sm bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
             <div class="text-2xl font-semibold text-[#45016a]">Manage Audios</div>
             <div class="flex gap-2">
@@ -106,6 +128,15 @@ $cancelEdit = function () {
         <div class="mt-6 grid lg:grid-cols-2 gap-6">
             <div class="rounded-sm p-5 border bg-white shadow-md shadow-purple-200 dark:bg-zinc-900 dark:border-zinc-700">
                 <div class="text-xl font-semibold text-[#45016a]">@if($editing) Edit Audio @else Add Audio @endif</div>
+                @if ($errors->any())
+                    <div class="mt-3 p-3 rounded-sm bg-red-100 text-red-700 text-sm dark:bg-red-900/30 dark:text-red-300">
+                        <ul class="list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="mt-4 grid gap-3">
                     <input type="text" wire:model.live="title" placeholder="Title" class="rounded-sm border p-3 dark:bg-zinc-800 dark:border-zinc-700" />
                     <textarea wire:model.live="description" rows="3" placeholder="Description" class="rounded-sm border p-3 dark:bg-zinc-800 dark:border-zinc-700"></textarea>
@@ -115,7 +146,7 @@ $cancelEdit = function () {
                         <option value="bible-study">Bible Study</option>
                         <option value="youth-fellowship">Youth Fellowship</option>
                     </select>
-                    <input type="file" wire:model="audio" accept="audio/*" class="rounded-sm border p-3 dark:bg-zinc-800 dark:border-zinc-700" />
+                    <input type="file" wire:model.live="audio" accept="audio/*" class="rounded-sm border p-3 dark:bg-zinc-800 dark:border-zinc-700" />
                     <label class="flex items-center gap-2"><input type="checkbox" wire:model.live="is_featured" /> <span>Feature on site</span></label>
                     <div class="flex gap-2">
                         <button wire:click="save" class="rounded-sm bg-[#45016a] text-white px-4 py-2">Save</button>
@@ -154,4 +185,3 @@ $cancelEdit = function () {
     </div>
     <div wire:loading class="mt-2 text-sm text-neutral-600">Loading...</div>
 </section>
-
