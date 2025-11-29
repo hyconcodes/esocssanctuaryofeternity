@@ -36,11 +36,17 @@ $audios = computed(function () {
 
 $save = function () {
     try {
+        // Check if audio file actually exists when it should
+        if (!$this->editing && !$this->audio) {
+            session()->flash('error', 'Please select an audio file to upload');
+            return;
+        }
+
         $this->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'category' => 'nullable|string|in:sunday-services,bible-study,youth-fellowship',
-            'audio' => $this->editing ? 'nullable|mimetypes:audio/mpeg,audio/mp4,audio/x-wav,audio/ogg|max:8192' : 'required|mimetypes:audio/mpeg,audio/mp4,audio/x-wav,audio/ogg|max:8192',
+            'audio' => $this->editing ? 'nullable|file|mimes:mp3,mp4,wav,ogg,m4a|max:8192' : 'required|file|mimes:mp3,mp4,wav,ogg,m4a|max:8192',
             'is_featured' => 'boolean',
         ]);
 
@@ -52,8 +58,17 @@ $save = function () {
         ];
 
         if ($this->audio && is_object($this->audio)) {
-            $path = $this->audio->store('audios', 'public');
-            $data['audio_path'] = $path;
+            try {
+                $path = $this->audio->store('audios', 'public');
+                $data['audio_path'] = $path;
+            } catch (\Exception $e) {
+                Log::error('Failed to store audio file', [
+                    'error' => $e->getMessage(),
+                    'user_id' => auth()->id()
+                ]);
+                session()->flash('error', 'Failed to upload audio file. Please try again.');
+                return;
+            }
         }
 
         if ($this->editing) {
@@ -74,10 +89,24 @@ $save = function () {
         $this->resetPage();
     } catch (\Illuminate\Validation\ValidationException $ve) {
         Log::warning('Audio validation failed', ['errors' => $ve->errors(), 'user_id' => auth()->id()]);
+        
+        // Check for specific file upload errors
+        if (isset($ve->errors()['audio'])) {
+            $audioErrors = $ve->errors()['audio'];
+            if (in_array('The audio failed to upload.', $audioErrors)) {
+                session()->flash('error', 'File upload failed. Check: file size (max 8MB), server upload limits, and storage permissions.');
+                Log::error('File upload system failure', [
+                    'max_upload' => ini_get('upload_max_filesize'),
+                    'post_max' => ini_get('post_max_size'),
+                    'storage_writable' => is_writable(storage_path('app/public')),
+                    'user_id' => auth()->id()
+                ]);
+            }
+        }
         throw $ve;
     } catch (\Throwable $e) {
         Log::error('Failed to save audio', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString(), 'user_id' => auth()->id()]);
-        session()->flash('error', 'Failed to save audio', ['error' => $e->getMessage()]);
+        session()->flash('error', 'Failed to save audio: ' . $e->getMessage());
     }
 };
 
@@ -146,7 +175,7 @@ $cancelEdit = function () {
                         <option value="bible-study">Bible Study</option>
                         <option value="youth-fellowship">Youth Fellowship</option>
                     </select>
-                    <input type="file" wire:model.live="audio" accept="audio/*" class="rounded-sm border p-3 dark:bg-zinc-800 dark:border-zinc-700 {{ $errors->has('audio') ? 'border-red-500' : '' }}" @if(!$editing) required @endif />
+                    <input type="file" wire:model="audio" accept="audio/*" class="rounded-sm border p-3 dark:bg-zinc-800 dark:border-zinc-700 {{ $errors->has('audio') ? 'border-red-500' : '' }}" @if(!$editing) required @endif />
                     <div class="text-xs text-neutral-600 dark:text-neutral-400">mp3, mp4, wav, ogg · max 8MB · required when adding</div>
                     @if($errors->has('audio'))
                         <div class="text-xs text-red-600 dark:text-red-300">{{ $errors->first('audio') }}</div>
