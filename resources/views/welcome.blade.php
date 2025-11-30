@@ -31,8 +31,14 @@
 @endsection
 
 @section('content')
-    <div data-preloader class="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-zinc-900 transition-opacity">
-        <img src="/assets/logo.png" alt="Logo" class="h-20 w-24 rounded-lg animate-pulse" />
+    <div data-preloader class="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-white dark:bg-zinc-900 transition-opacity">
+        <img src="/assets/logo.png" alt="Logo" class="h-30 w-44 rounded-lg animate-pulse" />
+        <div class="w-56 h-1 rounded-full bg-neutral-300 dark:bg-white/20 overflow-hidden">
+            <div class="h-full w-1/3 rounded-full bg-[#45016a] dark:bg-white animate-loadingline"></div>
+        </div>
+        <style>
+        @keyframes loadingline{0%{transform:translateX(-100%)}50%{transform:translateX(0%)}100%{transform:translateX(100%)}} .animate-loadingline{animation:loadingline 1.2s ease-in-out infinite}
+        </style>
     </div>
     @php
         $activeAnnouncement = null;
@@ -63,13 +69,16 @@
                     <p class="mt-4 text-white/90">Home Of Success , Signs And Wonders.</p>
                     <div class="mt-6 flex flex-wrap gap-3">
                         <a href="{{ route('membership') }}" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Join Us</a>
-                        <a href="https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a>
+                        {{-- <a href="https://www.youtube.com/channel/UCR1JTmJ37IapDPiJrmW9NDw" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Watch Live</a> --}}
+                        <a href="{{ route('giving') }}" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition">Donate</a>
                         {{-- <a href="/manifest.webmanifest" class="rounded-sm bg-[#45016a] text-white px-5 py-3 hover:bg-[#ffc0cb] hover:text-[#45016a] transition" data-pwa-install>Download ESOCS SOE App</a> --}}
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    
 
     <section class="px-4 sm:px-6 lg:px-10 mt-10" data-animate>
         <div class="grid lg:grid-cols-2 gap-6 items-center">
@@ -149,6 +158,7 @@
                         </div>
                         <div class="mt-6 flex flex-wrap gap-3">
                             <a href="{{ route('events.read', $event->slug) }}" class="rounded-sm px-4 py-2 bg-white text-[#45016a] hover:bg-[#ffc0cb] transition">Read more</a>
+                            <a href="{{ route('events') }}" class="rounded-sm px-4 py-2 border border-white/30 hover:bg-[#ffc0cb] transition">View More</a>
                         </div>
                     </div>
                 </div>
@@ -157,6 +167,9 @@
                     <div class="text-center">
                         <div class="text-xl sm:text-2xl font-semibold">No upcoming events</div>
                         <div class="text-white/80">Stay tuned for updates.</div>
+                        <div class="mt-4">
+                            <a href="{{ route('events') }}" class="rounded-sm px-4 py-2 bg-white text-[#45016a] hover:bg-[#ffc0cb] transition">View More</a>
+                        </div>
                     </div>
                 </div>
             @endif
@@ -233,18 +246,18 @@
             @endphp
             @if($latestAudio)
                 <div class="mt-6 rounded-sm p-5 bg-white border shadow-md shadow-purple-200">
-                    <div class="flex items-start gap-4">
-                        <button class="rounded-sm bg-[#45016a] text-white p-4 hover:bg-[#ffc0cb] hover:text-[#45016a] transition" onclick="this.closest('.rounded-sm').querySelector('audio')?.play()">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7"><path d="M8 5.5v13l11-6.5-11-6.5Z" /></svg>
+                    <div class="flex flex-col sm:flex-row items-start gap-4">
+                        <button class="rounded-sm bg-[#45016a] text-white p-4 sm:p-5 hover:bg-[#ffc0cb] hover:text-[#45016a] transition" onclick="this.closest('.rounded-sm').querySelector('audio')?.play()">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-7 sm:size-8"><path d="M8 5.5v13l11-6.5-11-6.5Z" /></svg>
                         </button>
                         <div class="flex-1">
-                            <div class="text-xl font-semibold text-[#45016a]">{{ $latestAudio->title }}</div>
-                            <div class="text-sm text-neutral-600">{{ ucwords(str_replace('-', ' ', $latestAudio->category ?? '')) }}</div>
+                            <div class="text-lg sm:text-xl font-semibold text-[#45016a]">{{ $latestAudio->title }}</div>
+                            <div class="text-xs sm:text-sm text-neutral-600">{{ ucwords(str_replace('-', ' ', $latestAudio->category ?? '')) }}</div>
                             @if($latestAudio->description)
-                                <p class="mt-2 text-neutral-700">{{ \Illuminate\Support\Str::limit($latestAudio->description, 160) }}</p>
+                                <p class="mt-2 text-neutral-700 sm:text-base">{{ \Illuminate\Support\Str::limit($latestAudio->description, 160) }}</p>
                             @endif
                             @if($latestAudio->audio_path)
-                                <audio controls class="mt-4 w-full">
+                                <audio controls class="mt-3 sm:mt-4 w-full">
                                     <source src="{{ asset('storage/'.$latestAudio->audio_path) }}" />
                                 </audio>
                             @endif
@@ -280,19 +293,19 @@
                 @endphp
                 @forelse($testimonies as $idx => $t)
                     <div class="transition duration-500 ease-in-out @if($idx === 0) opacity-100 relative @else opacity-0 absolute inset-0 pointer-events-none @endif" data-carousel-item data-index="{{ $idx }}">
-                        <div class="rounded-2xl border border-[#ffc0cb] p-6 bg-white shadow-md shadow-purple-200 max-w-2xl mx-auto">
-                            <div class="flex flex-col items-center text-center gap-3">
+                        <div class="rounded-2xl border border-[#ffc0cb] p-4 sm:p-6 bg-white shadow-md shadow-purple-200 max-w-lg lg:max-w-2xl mx-auto">
+                            <div class="flex flex-col items-center text-center gap-2 sm:gap-3">
                                 @php
                                     $photo = $t->author_photo_path ? asset('storage/'.$t->author_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($t->author ?? 'Member').'&background=ffc0cb&color=45016a';
                                 @endphp
-                                <img src="{{ $photo }}" alt="Author" class="h-16 w-16 rounded-full object-cover border" />
-                                <div class="text-lg font-semibold text-[#45016a]">{{ $t->title }}</div>
-                                <div class="text-xs text-neutral-600">{{ ucwords(str_replace('-', ' ', $t->category ?? '')) }}</div>
+                                <img src="{{ $photo }}" alt="Author" class="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover border" />
+                                <div class="text-base sm:text-lg font-semibold text-[#45016a]">{{ $t->title }}</div>
+                                <div class="text-xs sm:text-sm text-neutral-600">{{ ucwords(str_replace('-', ' ', $t->category ?? '')) }}</div>
                                 @if($t->description)
-                                    <blockquote class="mt-1 text-neutral-800 italic text-lg">“{{ $t->description }}”</blockquote>
+                                    <blockquote class="mt-1 text-neutral-800 italic text-sm sm:text-lg">“{{ $t->description }}”</blockquote>
                                 @endif
                                 @if($t->author)
-                                    <div class="text-sm text-neutral-700">— {{ $t->author }}</div>
+                                    <div class="text-xs sm:text-sm text-neutral-700">— {{ $t->author }}</div>
                                 @endif
                             </div>
                         </div>
@@ -300,6 +313,10 @@
                 @empty
                     <div class="text-center py-8 text-neutral-600">No testimonies yet.</div>
                 @endforelse
+            </div>
+            <div class="mt-3 flex justify-center gap-2 lg:hidden">
+                <button type="button" class="rounded-sm border px-3 py-2 hover:bg-[#ffc0cb]" data-action="prev">Prev</button>
+                <button type="button" class="rounded-sm border px-3 py-2 hover:bg-[#ffc0cb]" data-action="next">Next</button>
             </div>
             
         </div>

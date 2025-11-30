@@ -30,6 +30,9 @@
                         <flux:navlist.item icon="musical-note" :href="route('admin.audios')"
                             :current="request()->routeIs('admin.audios')" wire:navigate>{{ __('Manage Audios') }}
                         </flux:navlist.item>
+                        <flux:navlist.item icon="book-open" :href="route('admin.hymns')"
+                            :current="request()->routeIs('admin.hymns')" wire:navigate>{{ __('Manage Hymns') }}
+                        </flux:navlist.item>
                         <flux:navlist.item icon="chat-bubble-left-right" :href="route('admin.testimonies')"
                             :current="request()->routeIs('admin.testimonies')" wire:navigate>{{ __('Manage Testimonies') }}
                         </flux:navlist.item>

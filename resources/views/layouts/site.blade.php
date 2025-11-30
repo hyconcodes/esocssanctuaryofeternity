@@ -28,6 +28,7 @@
                             <div class="absolute right-0 mt-2 hidden group-hover:block rounded-sm bg-[#45016a] text-white shadow-md shadow-purple-200 border border-white/20 w-48">
                                 <a href="{{ route('gallery') }}" class="block px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Gallery</a>
                                 <a href="{{ route('audios') }}" class="block px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Audios</a>
+                                <a href="{{ route('hymns') }}" class="block px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Hymns</a>
                             </div>
                         </li>
                         <li><a href="{{ route('giving') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Giving</a></li>
@@ -50,6 +51,7 @@
                     <div id="mediaSubmenu" class="hidden ps-4 grid gap-2">
                         <a href="{{ route('gallery') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Gallery</a>
                         <a href="{{ route('audios') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Audios</a>
+                        <a href="{{ route('hymns') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Hymns</a>
                     </div>
                     <a href="{{ route('giving') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Giving</a>
                     <a href="{{ route('ministers') }}" class="rounded-sm px-4 py-2 hover:bg-[#ffc0cb]/20 transition">Ministers</a>

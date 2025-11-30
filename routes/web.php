@@ -52,6 +52,10 @@ Volt::route('admin/audios', 'audios.manage')
     ->middleware(['auth', 'admin'])
     ->name('admin.audios');
 
+Volt::route('admin/hymns', 'hymns.manage')
+    ->middleware(['auth', 'admin'])
+    ->name('admin.hymns');
+
 Volt::route('admin/testimonies', 'testimonies.manage')
     ->middleware(['auth', 'admin'])
     ->name('admin.testimonies');
@@ -91,6 +95,35 @@ Route::get('/events/{slug}', function (string $slug) {
     $event = \App\Models\Event::where('slug', $slug)->firstOrFail();
     return view('event-read', compact('event'));
 })->name('events.read');
+
+Route::get('/hymns', function (\Illuminate\Http\Request $request) {
+    $q = trim($request->query('q', ''));
+    $items = collect();
+    if (\Illuminate\Support\Facades\Schema::hasTable('hymns')) {
+        $query = \App\Models\Hymn::query()->where('is_published', true)->orderBy('number','asc');
+        if ($q !== '') {
+            $query->where(function ($qb) use ($q) {
+                if (is_numeric($q)) {
+                    $qb->orWhere('number', intval($q));
+                }
+                $qb->orWhere('title','like','%'.$q.'%');
+            });
+        }
+        $items = $query->paginate(20);
+    }
+    return view('hymns', ['items' => $items, 'q' => $q]);
+})->name('hymns');
+
+Route::get('/hymns/{number}', function (string $number) {
+    $query = \App\Models\Hymn::query()->where('is_published', true);
+    if (is_numeric($number)) {
+        $query->where('number', intval($number));
+    } else {
+        $query->where('title', 'like', '%'.$number.'%');
+    }
+    $hymn = $query->orderBy('number','asc')->firstOrFail();
+    return view('hymn-read', compact('hymn'));
+})->name('hymns.read');
 
 Route::post('/testimonies/submit', function (\Illuminate\Http\Request $request) {
     $data = $request->validate([
